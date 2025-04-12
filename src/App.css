@@ -1,0 +1,19 @@
+/* Add margin below pagination bullets */
+.swiper-pagination {
+    margin-bottom: 1.5rem; /* Tailwind's mb-6 */
+  }
+  
+  /* Optional: style bullets */
+  .swiper-pagination-bullet {
+    background-color: white;
+    opacity: 0.7;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: #facc15; /* yellow-400 */
+    opacity: 1;
+  }
+  .carousel .thumbs-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+  }
