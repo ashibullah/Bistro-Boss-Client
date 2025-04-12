@@ -1,12 +1,49 @@
-# React + Vite
+# BistroBoss - Client Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the **BistroBoss** client application! This project is a modern, efficient, and scalable restaurant management application built using cutting-edge web technologies.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Fast Development**: Built with [Vite](https://vitejs.dev/) for blazing-fast development and Hot Module Replacement (HMR).
+- **React Integration**: Utilizes [React](https://reactjs.org/) for building dynamic and interactive user interfaces.
+- **Code Quality**: Configured with ESLint for maintaining high code quality and consistency.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Vite**: For fast builds and HMR.
+- **React**: For building the user interface.
+- **React Router**: For client-side routing.
+- **Tailwind CSS**: For styling the application.
+- **Axios**: For handling HTTP requests.
+- **Firebase**: For authentication and hosting.
+- **React Query**: For data fetching and state management.
+- **Stripe**: For payment integration.
+
+## Development Setup
+
+1. Clone the repository:
+    ```bash
+    git clone <repository-url>
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd bistro-client
+    ```
+3. Install dependencies:
+    ```bash
+    npm install
+    ```
+4. Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+## Expanding the ESLint Configuration
+
+For production applications, consider using TypeScript and enabling type-aware lint rules. Check out the [TypeScript template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) into your project.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+Happy coding!
