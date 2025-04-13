@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useMenu = ({ category }) => {
+const useMenu = (category) => {
     const [menu, setMenu] = useState([]);
     const [loading, setLoading] = useState(true);
 

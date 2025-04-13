@@ -6,7 +6,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="fixed top-0 z-50 w-full bg-black/30 shadow-sm text-white px-4 md:px-20 lg:px-60">
+    <div className="fixed top-0 z-50 w-full bg-black/30 shadow-sm text-white px-4 md:px-20 lg:px-35">
       <div className="navbar flex justify-between items-center py-2">
         {/* Left: Logo */}
         <div className="flex items-center">
@@ -19,11 +19,12 @@ const Navbar = () => {
         {/* Right: Links + Cart + Avatar */}
         <div className="flex items-center gap-2">
           {/* Desktop Menu */}
-          <div className="hidden lg:flex gap-4 items-center">
+          <div className="hidden lg:flex  items-center">
             <NavLink className="btn btn-ghost normal-case">Home</NavLink>
             <NavLink className="btn btn-ghost normal-case">Contact Us</NavLink>
             <NavLink className="btn btn-ghost normal-case">Dashboard</NavLink>
             <NavLink to={'/menu'} className="btn btn-ghost normal-case">Our Menu</NavLink>
+            <NavLink to={'/order'} className="btn btn-ghost normal-case">Order Now</NavLink>
           </div>
 
           {/* Cart */}
@@ -92,7 +93,8 @@ const Navbar = () => {
           <li><NavLink>Home</NavLink></li>
           <li><NavLink>Contact Us</NavLink></li>
           <li><NavLink>Dashboard</NavLink></li>
-          <li><NavLink>Our Menu</NavLink></li>
+          <li><NavLink to={'/menu'}>Our Menu</NavLink></li>
+          <li><NavLink to={'/order'}>Order Now</NavLink></li>
         </ul>
       )}
 
