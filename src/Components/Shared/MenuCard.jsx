@@ -1,9 +1,9 @@
 
-import { Pagination, VisiblePagesIndex } from './Pagination';
+import {  usePagination, VisiblePagesIndex } from '../../Hooks/usePagination';
 
 const MenuCard = ({ menu }) => {
 
-    const { currentPosts, pages, currentPage, setCurrentPage } = Pagination(menu); // Fixed the bracket from ] to }
+    const { currentPosts, pages, currentPage, setCurrentPage } = usePagination(menu); // Fixed the bracket from ] to }
 
 
 
