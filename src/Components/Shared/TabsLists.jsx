@@ -8,6 +8,7 @@ import MenuCard from './MenuCard';
 export const TabsLists = () => {
     const [menu, loading] = useMenu();
     const [categories, setCategories] = useState([]);
+    
 
     useEffect(() => {
         if (!loading) {
