@@ -10,7 +10,7 @@ const Category = () => {
     return (
         <>
             <SectionTittle heading="Our Categories" subheading="Explore the best dishes" ></SectionTittle>
-            <div className='lg:w-4xl mx-auto py-10'>
+            <div className='lg:w-4xl mx-auto py-10 sm:px-10 px-2'>
                 <Swiper
                     slidesPerView={3}
                     spaceBetween={20}

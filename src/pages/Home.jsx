@@ -5,7 +5,7 @@ import Category from '../Components/Category';
 import PopularMenu from '../Components/PopularMenu';
 import Featureditem from '../Components/Featureditem';
 import Reviews from '../Components/Reviews';
-import { Helmet } from 'react-helmet-async';
+
 
 
 const Home = () => {
