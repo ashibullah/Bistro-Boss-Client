@@ -19,13 +19,18 @@ const Navbar = () => {
         {/* Right: Links + Cart + Avatar */}
         <div className="flex items-center gap-2">
           {/* Desktop Menu */}
-          <div className="hidden lg:flex  items-center">
+          <div className="hidden lg:flex items-center">
             <NavLink className="btn btn-ghost normal-case">Home</NavLink>
             <NavLink to={'/contact'} className="btn btn-ghost normal-case">Contact Us</NavLink>
             <NavLink className="btn btn-ghost normal-case">Dashboard</NavLink>
             <NavLink to={'/menu'} className="btn btn-ghost normal-case">Our Menu</NavLink>
             <NavLink to={'/order'} className="btn btn-ghost normal-case">Order Now</NavLink>
+            {/* Login Button */}
+            <NavLink to="/login" className="ml-4 btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">
+              Login
+            </NavLink>
           </div>
+
 
           {/* Cart */}
           <div className="dropdown dropdown-end">
@@ -95,8 +100,10 @@ const Navbar = () => {
           <li><NavLink>Dashboard</NavLink></li>
           <li><NavLink to={'/menu'}>Our Menu</NavLink></li>
           <li><NavLink to={'/order'}>Order Now</NavLink></li>
+          <li><NavLink to="/login" className="text-orange-500 hover:text-orange-600 font-semibold">Login</NavLink></li>
         </ul>
       )}
+
 
     </div>
   );

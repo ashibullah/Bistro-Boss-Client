@@ -8,17 +8,13 @@ import { useEffect, useState } from 'react';
 import { Rating } from '@smastrom/react-rating'
 
 import '@smastrom/react-rating/style.css'
+import useReview from '../Hooks/useReview';
 
 
 
 const ReviewSlider = () => {
-    const [reviews, setReviews] = useState([]);
-    useEffect(() => {
-        fetch('reviews.json')
-            .then(res => res.json())
-            .then(data => setReviews(data))
-            .catch(err => console.log(err))
-    }, [])
+    const [reviews, loading] = useReview();
+    console.log('review slider', reviews);
     return (
         <div>
             <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
