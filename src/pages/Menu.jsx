@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+
 import Cover from "../Components/Shared/Cover";
 import MenuCover from "../assets/menu/banner3.jpg";
 import PizzaCover from "../assets/menu/pizza-bg.jpg";
@@ -24,9 +24,7 @@ const Menu = () => {
 
     return (
         <div>
-            <Helmet>
-                <title>Menu</title>
-            </Helmet>
+            
             <Cover img={MenuCover} tittle="Our Menu" description="This is the menu description." />
             <SectionTittle heading="Today's Offer" subheading="Don't miss" />
             {

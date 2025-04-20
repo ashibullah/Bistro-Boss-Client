@@ -11,10 +11,6 @@ import Reviews from '../Components/Reviews';
 const Home = () => {
     return (
         <div>
-            <>
-                
-            </>
-
             <Banner />
             <Category />
             <PopularMenu />

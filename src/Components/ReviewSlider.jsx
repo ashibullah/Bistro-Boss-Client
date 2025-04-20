@@ -14,7 +14,7 @@ import useReview from '../Hooks/useReview';
 
 const ReviewSlider = () => {
     const [reviews, loading] = useReview();
-    console.log('review slider', reviews);
+    // console.log('review slider', reviews);
     return (
         <div>
             <Swiper navigation={true} modules={[Navigation]} className="mySwiper">

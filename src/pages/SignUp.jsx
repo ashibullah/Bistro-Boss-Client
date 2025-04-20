@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GoogleSignIn from '../Components/GoogleSignIn';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Signup = () => {
     const navigate = useNavigate();
+    const {createUser, setUser} = useContext(AuthContext);
 
     const handleSignup = (e) => {
         e.preventDefault();
-        // Add your signup logic here
-        console.log('Signed up');
-        navigate('/'); // Redirect after successful signup
+        const form = e.target;
+        const email = form.elements.email.value;
+        const password = form.elements.password.value;
+        // const name = form.elements.name.value;
+        createUser(email, password)
+        .then((result) => {
+            const user = result.user;
+            
+            setUser(user);
+            navigate('/');
+        })
+        .catch((error) => {
+            console.error("Signup error:", error);
+        });
+
+        // console.log(email, password, name);
+        
+       
     };
 
     return (
@@ -21,6 +38,7 @@ const Signup = () => {
                         <label className="block text-gray-700 mb-1">Name</label>
                         <input
                             type="text"
+                            name='name'
                             required
                             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
                         />
@@ -29,6 +47,7 @@ const Signup = () => {
                         <label className="block text-gray-700 mb-1">Email</label>
                         <input
                             type="email"
+                            name='email'
                             required
                             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
                         />
@@ -37,6 +56,7 @@ const Signup = () => {
                         <label className="block text-gray-700 mb-1">Password</label>
                         <input
                             type="password"
+                            name='password'
                             required
                             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
                         />
@@ -44,6 +64,7 @@ const Signup = () => {
                     <button
                         type="submit"
                         className="w-full py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition"
+                        onSubmit={handleSignup}
                     >
                         Sign Up
                     </button>

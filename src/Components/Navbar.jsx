@@ -1,36 +1,66 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import logo from '../assets/logo.png';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { logOut, user, setUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => {
+        console.error("Logout failed:", error);
+      });
+  };
 
   return (
     <div className="fixed top-0 z-50 w-full bg-black/30 shadow-sm text-white px-4 md:px-20 lg:px-35">
       <div className="navbar flex justify-between items-center py-2">
         {/* Left: Logo */}
         <div className="flex items-center">
-          <NavLink className="flex items-center gap-2 text-xl font-bold">
+          <NavLink className="flex items-center gap-2 text-xl font-bold" to="/">
             <img src={logo} alt="logo" className="w-10 h-10" />
             Bistro Boss
           </NavLink>
         </div>
 
-        {/* Right: Links + Cart + Avatar */}
+        {/* Right: Links + Cart + Auth */}
         <div className="flex items-center gap-2">
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center">
-            <NavLink className="btn btn-ghost normal-case">Home</NavLink>
-            <NavLink to={'/contact'} className="btn btn-ghost normal-case">Contact Us</NavLink>
-            <NavLink className="btn btn-ghost normal-case">Dashboard</NavLink>
-            <NavLink to={'/menu'} className="btn btn-ghost normal-case">Our Menu</NavLink>
-            <NavLink to={'/order'} className="btn btn-ghost normal-case">Order Now</NavLink>
-            {/* Login Button */}
-            <NavLink to="/login" className="ml-4 btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">
-              Login
-            </NavLink>
-          </div>
+            <NavLink className="btn btn-ghost normal-case" to="/">Home</NavLink>
+            <NavLink to="/contact" className="btn btn-ghost normal-case">Contact Us</NavLink>
+            <NavLink className="btn btn-ghost normal-case" to="/dashboard">Dashboard</NavLink>
+            <NavLink to="/menu" className="btn btn-ghost normal-case">Our Menu</NavLink>
+            <NavLink to="/order" className="btn btn-ghost normal-case">Order Now</NavLink>
 
+            {/* Conditionally render Login or Avatar */}
+            {user ? (
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 rounded-full">
+                    <img
+                      alt="User avatar"
+                      src={user.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
+                    />
+                  </div>
+                </div>
+                <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow text-black z-50">
+                  <li><NavLink className="justify-between">Profile</NavLink></li>
+                  <li><NavLink>Settings</NavLink></li>
+                  <li><button onClick={handleLogout}>Logout</button></li>
+                </ul>
+              </div>
+            ) : (
+              <NavLink to="/login" className="ml-4 btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">
+                Login
+              </NavLink>
+            )}
+          </div>
 
           {/* Cart */}
           <div className="dropdown dropdown-end">
@@ -56,26 +86,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Avatar */}
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  alt="User avatar"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-              </div>
-            </div>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow text-black z-50">
-              <li>
-                <NavLink className="justify-between">
-                  Profile <span className="badge">New</span>
-                </NavLink>
-              </li>
-              <li><NavLink>Settings</NavLink></li>
-              <li><NavLink>Logout</NavLink></li>
-            </ul>
-          </div>
-
           {/* Hamburger */}
           <div className="lg:hidden">
             <button
@@ -95,16 +105,18 @@ const Navbar = () => {
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <ul className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-52 absolute right-4 top-16 text-black lg:hidden">
-          <li><NavLink>Home</NavLink></li>
-          <li><NavLink to={'/contact'}>Contact Us</NavLink></li>
-          <li><NavLink>Dashboard</NavLink></li>
-          <li><NavLink to={'/menu'}>Our Menu</NavLink></li>
-          <li><NavLink to={'/order'}>Order Now</NavLink></li>
-          <li><NavLink to="/login" className="text-orange-500 hover:text-orange-600 font-semibold">Login</NavLink></li>
+          <li><NavLink to="/">Home</NavLink></li>
+          <li><NavLink to="/contact">Contact Us</NavLink></li>
+          <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+          <li><NavLink to="/menu">Our Menu</NavLink></li>
+          <li><NavLink to="/order">Order Now</NavLink></li>
+          {user ? (
+            <li><button onClick={handleLogout} className="text-red-500 font-semibold">Logout</button></li>
+          ) : (
+            <li><NavLink to="/login" className="text-orange-500 hover:text-orange-600 font-semibold">Login</NavLink></li>
+          )}
         </ul>
       )}
-
-
     </div>
   );
 };
