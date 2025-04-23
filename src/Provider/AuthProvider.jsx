@@ -8,13 +8,13 @@ const provider = new GoogleAuthProvider();
 
 const auth = getAuth(app);
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [cart , setCart] = useState([]);  
+    const [cart, setCart] = useState([]);
 
-    
+
 
     const createUser = (email, password) => {
         setLoading(true);
@@ -32,26 +32,33 @@ const AuthProvider = ({children}) => {
         setLoading(true);
         return signInWithPopup(auth, provider);
     }
-    
+
     const updateUserProfile = (currentUser) => {
         return updateProfile(auth.currentUser, currentUser);
     }
 
-    
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
-            axiosInstance.get(`/carts?email=${currentUser?.email}`)
-                .then(response => {
-                    setCart(response.data);
-                })
-                .catch(error => {
-                    console.error("Failed to fetch cart:", error);
-                });
+
         });
         return () => unsubscribe();
     }, []);
+
+    useEffect(() => {
+        if (user) {
+            axiosInstance.get(`/carts?email=${user?.email}`)
+            .then(response => {
+                setCart(response.data);
+                // console.log("Cart fetched successfully:", response.data);
+            })
+            .catch(error => {
+                console.error("Failed to fetch cart:", error);
+            });
+        }
+    }, [user, cart.length]);
 
 
     const authInfo = {

@@ -2,19 +2,25 @@ import React, { useEffect, useState } from 'react';
 import logo from '../assets/logo.png';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
+import { BiCart } from 'react-icons/bi';
+import { RxCross2 } from 'react-icons/rx';
 
 
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { logOut, user, setUser, cart  } = useAuth();
+  const { logOut, user, setUser, cart } = useAuth();
+  const [totalAmount, setTotalAmount] = useState(0);
   // console.log(cart);
+  // useEffect(() => {
+  //   if (user) {
+  //     // console.log(cart.length);
+  //   }
+  // },[cart]);
   useEffect(() => {
-    if (user) {
-      console.log(cart.length);
-    }
-  },[cart]);
-  
+   setTotalAmount(cart.reduce((acc, item) => acc + item.price, 0)) ;
+  }, [cart]);
+
 
   const handleLogout = () => {
     logOut()
@@ -72,27 +78,44 @@ const Navbar = () => {
           </div>
 
           {/* Cart */}
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end" >
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-              <div className="indicator">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0
-                    0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+              <div className="indicator text-3xl">
+                <BiCart />
                 <span className="badge badge-sm indicator-item bg-orange-500 border-none  rounded-full text-white">{cart.length}</span>
               </div>
             </div>
-            <div tabIndex={0} className="card card-compact dropdown-content bg-base-100 z-50 mt-3 w-52 shadow text-black">
-              <div className="card-body">
-                <span className="text-lg font-bold">{cart.length} Items</span>
-                <span className="text-info">Subtotal: </span>
-                <div className="card-actions">
-                  <button className="btn btn-primary btn-block">View cart</button>
-                </div>
+            <div tabIndex={0} className="card card-compact dropdown-content bg-base-100 z-50 mt-3 w-80 shadow text-black">
+            <div className="p-4 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-gray-200">
+              <div className='flex justify-between items-center mb-2'>
+
+                <span className="font-bold text-sm mb-2">Cart</span>
+                <span className="font-bold text-sm mb-2">Total: <span className='text-green-800'>${totalAmount}</span></span>
+              </div>
+
+                {cart && cart.length > 0 ? (
+                  cart.map((item) => (
+                    <div key={item._id} className="flex items-center gap-2 bg-white shadow-sm rounded p-2 mb-2">
+                      <img src={item.image} alt={item.name} className="w-12 h-12 rounded object-cover" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">{item.name}</h4>
+                        <p className="text-orange-500 font-semibold">${item.price}</p>
+                      </div>
+                      <button
+                        onClick={() => handleDelete(item._id)}
+                        className="text-red-500 hover:text-red-700 text-lg"
+                      >
+                        <RxCross2 />
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-center text-gray-500">Your cart is empty</p>
+                )}
+
               </div>
             </div>
+
           </div>
 
           {/* Hamburger */}
