@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const GoogleSignIn = () => {
+  const { googleSignIn } = useContext(AuthContext);
   const handleGoogleSignIn = () => {  
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        console.log("Google sign-in successful:", user);
+      })
+      .catch((error) => {
+        console.error("Google sign-in error:", error);
+      });
+
 
   };
   return (

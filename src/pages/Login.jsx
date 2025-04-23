@@ -1,30 +1,31 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import GoogleSignIn from '../Components/GoogleSignIn';
 import { AuthContext } from '../Provider/AuthProvider';
 import { useContext } from 'react';
 
 const Login = () => {
     const navigate = useNavigate();
-    const {signInUser, setUser} = useContext(AuthContext);
+    const location = useLocation();
+    const { signInUser, setUser } = useContext(AuthContext);
+    const from = location.state?.from?.pathname || "/";
+    // console.log(from);
 
     const handleLogin = (e) => {
         e.preventDefault();
         const form = e.target;
         // console.log(e.target[0].value);
         const formemail = form.elements.email.value;
-        const formpassword = form.elements.password.value; 
+        const formpassword = form.elements.password.value;
 
         signInUser(formemail, formpassword)
-        .then((result) => {
-            const user = result.user;
-            setUser(user);
-            navigate('/');
-        })
-        .catch((error) => {
-            console.error("Login failed:", error);
-        });
- 
- 
+            .then((result) => {
+                const user = result.user;
+                setUser(user);
+                navigate(from, { replace: true });
+            })
+            .catch((error) => {
+                console.error("Login failed:", error);
+            });
     };
 
     return (
@@ -53,7 +54,6 @@ const Login = () => {
                     <button
                         type="submit"
                         className="w-full py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition"
-                        onSubmit={handleLogin}
                     >
                         Login
                     </button>
