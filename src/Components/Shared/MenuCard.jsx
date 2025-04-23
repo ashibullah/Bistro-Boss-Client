@@ -1,10 +1,9 @@
-
-import { PiCarThin } from 'react-icons/pi';
-import { usePagination, VisiblePagesIndex } from '../../Hooks/usePagination';
-import { BiCartAdd } from 'react-icons/bi';
-import { BsCart, BsCart2, BsCart3, BsCart4 } from 'react-icons/bs';
+import { usePagination } from '../../Hooks/usePagination';
+import { BsCart2 } from 'react-icons/bs';
 import useAuth from '../../Hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import { axiosInstance } from '../../axios/axiosInstance';
 
 const MenuCard = ({ menu }) => {
     const navigate = useNavigate();
@@ -19,9 +18,23 @@ const MenuCard = ({ menu }) => {
 
 
         if (!user || !user.email) {
-            alert("Please log in to add items to the cart.");
+            toast.error("Please log in to add items to the cart.", { duration: 2000 });
             navigate('/login', { state: { from: location } });
             return;
+        }
+        else{
+            const cartItem = { menuId: menuItem._id, userEmail: user.email}
+            // console.log(cartItem);
+            axiosInstance.post('/carts', cartItem)
+            .then((res)=>{
+                // console.log(res.data);
+                if(res.data.insertedId){
+                        toast.success("Added to cart successfully", { duration: 2000 });
+                    }
+                }).catch((error) => {
+                    console.error("Error adding to cart:", error);
+                    toast.error("Failed to add to cart", { duration: 2000 });
+                })
         }
 
         // Handle adding the menu item to the cart here
@@ -33,6 +46,7 @@ const MenuCard = ({ menu }) => {
 
     return (
         <>
+        
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {currentPosts.map((menuItem) => (
                     <div key={menuItem._id} className="bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-xs mx-auto">
@@ -64,7 +78,7 @@ const MenuCard = ({ menu }) => {
                     </div>
                 ))}
             </div>
-            {/* <VisiblePagesIndex pages={pages} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
+            
         </>
 
     );
