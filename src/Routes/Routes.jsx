@@ -6,6 +6,8 @@ import OrderNow from "../pages/OrderNow";
 import ContactUs from "../pages/ContactUs";
 import Login from "../pages/Login";
 import Signup from "../pages/SignUp";
+import PrivateRoute from "./PrivateRoute";
+import Bypass from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -32,11 +34,11 @@ export const router = createBrowserRouter([
        },
        {
         path: "/login",
-        element: <Login/>
+        element: <Bypass><Login/></Bypass>
        },
        {
         path: "/signup",
-        element: <Signup/>
+        element: <Bypass><Signup/></Bypass>
        }
              
       ]

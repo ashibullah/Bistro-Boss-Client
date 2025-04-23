@@ -6,6 +6,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { logOut, user, setUser } = useContext(AuthContext);
+  console.log(user);
 
   const handleLogout = () => {
     logOut()
@@ -45,7 +46,7 @@ const Navbar = () => {
                   <div className="w-10 rounded-full">
                     <img
                       alt="User avatar"
-                      src={user.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
+                      src={user.photoURL || "https://dpbnri2zg3lc2.cloudfront.net/en/wp-content/uploads/old-blog-uploads/processing-animation.gif"}
                     />
                   </div>
                 </div>

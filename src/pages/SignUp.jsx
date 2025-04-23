@@ -6,7 +6,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 
 const Signup = () => {
     const navigate = useNavigate();
-    const { createUser, setUser } = useContext(AuthContext);
+    const { createUser, setUser ,updateUserProfile } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
@@ -15,6 +15,16 @@ const Signup = () => {
             .then((result) => {
                 const user = result.user;
                 setUser(user);
+                const defImg = 'https://th.bing.com/th/id/OIP.SJouM0O5VwvVjWEmGGdBLQHaHa?rs=1&pid=ImgDetMain';
+                
+
+                updateUserProfile({ photoURL: defImg, displayName: data.name })
+                    .then((result) => {
+                        console.log("User profile updated:", result.user);
+                    })
+                    .catch((error) => {
+                        console.error("Error updating user profile:", error);
+                    });
                 navigate('/');
             })
             .catch((error) => {
