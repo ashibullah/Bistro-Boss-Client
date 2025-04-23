@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
+import { axiosInstance } from "../axios/axiosInstance";
 
 export const AuthContext = createContext(null);
 const provider = new GoogleAuthProvider();
@@ -11,6 +12,9 @@ const AuthProvider = ({children}) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [cart , setCart] = useState([]);  
+
+    
 
     const createUser = (email, password) => {
         setLoading(true);
@@ -38,6 +42,13 @@ const AuthProvider = ({children}) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
+            axiosInstance.get(`/carts?email=${currentUser?.email}`)
+                .then(response => {
+                    setCart(response.data);
+                })
+                .catch(error => {
+                    console.error("Failed to fetch cart:", error);
+                });
         });
         return () => unsubscribe();
     }, []);
@@ -52,7 +63,10 @@ const AuthProvider = ({children}) => {
         loading,
         setLoading,
         googleSignIn,
-        updateUserProfile
+        updateUserProfile,
+        cart,
+        setCart,
+        axiosInstance,
     };
     return (
         <AuthContext.Provider value={authInfo}>

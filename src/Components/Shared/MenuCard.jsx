@@ -9,9 +9,10 @@ const MenuCard = ({ menu }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const { currentPosts } = usePagination(menu);
+    
 
 
-    const { user } = useAuth();
+    const { user , setCart ,cart} = useAuth();
     // console.log(user.email);
     const addToCart = (menuItem) => {
         // console.log(location.pathname);
@@ -29,6 +30,10 @@ const MenuCard = ({ menu }) => {
             .then((res)=>{
                 // console.log(res.data);
                 if(res.data.insertedId){
+                    // console.log("Added to cart successfully", res.data);
+                        const newCart = [...cart, res.data];
+                        setCart(newCart);
+                        // console.log("Updated cart:", newCart);
                         toast.success("Added to cart successfully", { duration: 2000 });
                     }
                 }).catch((error) => {
