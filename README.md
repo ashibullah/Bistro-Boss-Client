@@ -54,11 +54,11 @@ Bistro Boss is a full-featured restaurant web application built with the MERN st
 
 ## 🖼️ Screenshots
 
-> ![Home](src\assets\screenshot\image.png)
-> ![Homepage Screenshot](src\assets\screenshot\image-1.png)
-> ![alt text](src\assets\screenshot\image-2.png)
-> ![alt text](src\assets\screenshot\image-3.png)
-> ![alt text](src\assets\screenshot\image-4.png)
+> ![Home](src/assets/screenshot/image.png)
+> ![Homepage Screenshot](src/assets/screenshot/image-1.png)
+> ![alt text](src/assets/screenshot/image-2.png)
+> ![alt text](src/assets/screenshot/image-3.png)
+> ![alt text](src/assets/screenshot/image-4.png)
 
 
 ---
