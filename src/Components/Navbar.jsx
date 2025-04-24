@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import logo from '../assets/logo.png';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
 import { BiCart } from 'react-icons/bi';
 import { RxCross2 } from 'react-icons/rx';
+import { TiDelete } from 'react-icons/ti';
 
 
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { logOut, user, setUser, cart } = useAuth();
-  const [totalAmount, setTotalAmount] = useState(0);
+  const { logOut, user, setUser, cart, totalAmount, groupedCart, setGroupedCart } = useAuth();
+
+  // console.log(groupedCart);
   // console.log(cart);
-  // useEffect(() => {
-  //   if (user) {
-  //     // console.log(cart.length);
-  //   }
-  // },[cart]);
-  useEffect(() => {
-   setTotalAmount(cart.reduce((acc, item) => acc + item.price, 0)) ;
-  }, [cart]);
 
 
   const handleLogout = () => {
@@ -85,29 +79,42 @@ const Navbar = () => {
                 <span className="badge badge-sm indicator-item bg-orange-500 border-none  rounded-full text-white">{cart.length}</span>
               </div>
             </div>
-            <div tabIndex={0} className="card card-compact dropdown-content bg-base-100 z-50 mt-3 w-80 shadow text-black">
-            <div className="p-4 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-gray-200">
-              <div className='flex justify-between items-center mb-2'>
+            <div tabIndex={0} className="card card-compact  dropdown-content bg-base-100 z-50 mt-4 w-96  shadow text-black min-h-auto">
+              <div className="p-4 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-gray-200">
+                <div className='flex justify-between items-center mb-2 '>
 
-                <span className="font-bold text-sm mb-2">Cart</span>
-                <span className="font-bold text-sm mb-2">Total: <span className='text-green-800'>${totalAmount}</span></span>
-              </div>
+                  <span className="font-bold text-sm mb-2">Cart</span>
+                  <span className="font-bold text-sm mb-2">Total: <span className='text-green-800'>${totalAmount.toFixed(2)}</span></span>
+                </div>
 
                 {cart && cart.length > 0 ? (
-                  cart.map((item) => (
-                    <div key={item._id} className="flex items-center gap-2 bg-white shadow-sm rounded p-2 mb-2">
+                  groupedCart.map((item) => (
+                    <>
+                    <div key={item.cartId} className="flex items-center gap-2 bg-white shadow-sm rounded p-2 mb-2">
                       <img src={item.image} alt={item.name} className="w-12 h-12 rounded object-cover" />
                       <div className="flex-1">
-                        <h4 className="text-sm font-medium">{item.name}</h4>
-                        <p className="text-orange-500 font-semibold">${item.price}</p>
+                        <div className='grid grid-cols-4 gap-2'>
+                          <h4 className="text-sm font-medium col-span-3 text-gray-800">{item.name}</h4>
+                          <h4 className="text-sm font-medium col-span-1 text-orange-600">× {item.quantity}</h4>
+                        </div>
+
+                        <div className='flex justify-between items-center '>
+                          <p className="text-gray-600 text-xs font-medium">${item.price.toFixed(2)} each</p>
+                          <span className="text-green-600 text-xs font-semibold">Total: ${(item.price * item.quantity).toFixed(2)}</span>
+
+
+                        </div>
+
+
                       </div>
                       <button
                         onClick={() => handleDelete(item._id)}
-                        className="text-red-500 hover:text-red-700 text-lg"
+                        className="text-red-600 hover:text-black text-2xl font-bold hover:rotate-90 transition-transform duration-200"
                       >
-                        <RxCross2 />
+                        <TiDelete />
                       </button>
                     </div>
+                    </>
                   ))
                 ) : (
                   <p className="text-sm text-center text-gray-500">Your cart is empty</p>

@@ -13,7 +13,17 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [cart, setCart] = useState([]);
+    const [totalAmount, setTotalAmount] = useState(0);
+    const [groupedCart, setGroupedCart] = useState([]);
 
+
+
+
+
+    useEffect(() => {
+        const total = cart.reduce((acc, item) => acc + item.price, 0);
+        setTotalAmount(total);
+    }, [cart]);
 
 
     const createUser = (email, password) => {
@@ -47,18 +57,39 @@ const AuthProvider = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
+
     useEffect(() => {
         if (user) {
             axiosInstance.get(`/carts?email=${user?.email}`)
-            .then(response => {
-                setCart(response.data);
-                // console.log("Cart fetched successfully:", response.data);
-            })
-            .catch(error => {
-                console.error("Failed to fetch cart:", error);
-            });
+                .then(response => {
+                    setCart(response.data);
+                    // console.log("Cart fetched successfully:", response.data);
+                })
+                .catch(error => {
+                    console.error("Failed to fetch cart:", error);
+                });
         }
     }, [user, cart.length]);
+
+    
+    
+
+    useEffect(() => {
+        setTotalAmount(cart.reduce((acc, item) => acc + item.price, 0));
+      
+        const grouped = cart.reduce((acc, item) => {
+          const existingItem = acc.find(i => i._id === item._id);
+          if (existingItem) {
+            existingItem.quantity += 1;
+          } else {
+            acc.push({ ...item, quantity: 1 });
+          }
+          return acc;
+        }, []);
+        // console.log("Grouped:", grouped);
+        setGroupedCart(grouped);
+        // console.log(groupedCart);
+      }, [cart]); 
 
 
     const authInfo = {
@@ -74,6 +105,9 @@ const AuthProvider = ({ children }) => {
         cart,
         setCart,
         axiosInstance,
+        totalAmount,
+        groupedCart,
+        
     };
     return (
         <AuthContext.Provider value={authInfo}>
