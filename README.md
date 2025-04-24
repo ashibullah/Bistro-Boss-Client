@@ -1,49 +1,74 @@
-# BistroBoss - Client Application
+# 🍽️ Bistro Boss
 
-Welcome to the **BistroBoss** client application! This project is a modern, efficient, and scalable restaurant management application built using cutting-edge web technologies.
+Bistro Boss is a full-featured restaurant web application built with the MERN stack. It includes user authentication, dynamic menu management, a shopping cart, admin dashboard, and more. Perfect for a modern food ordering experience.
 
-## Features
+---
 
-- **Fast Development**: Built with [Vite](https://vitejs.dev/) for blazing-fast development and Hot Module Replacement (HMR).
-- **React Integration**: Utilizes [React](https://reactjs.org/) for building dynamic and interactive user interfaces.
-- **Code Quality**: Configured with ESLint for maintaining high code quality and consistency.
+## 🚀 Live Demo
 
-## Technologies Used
+> Coming soon...
 
-- **Vite**: For fast builds and HMR.
-- **React**: For building the user interface.
-- **React Router**: For client-side routing.
-- **Tailwind CSS**: For styling the application.
-- **Axios**: For handling HTTP requests.
-- **Firebase**: For authentication and hosting.
-- **React Query**: For data fetching and state management.
-- **Stripe**: For payment integration.
+---
 
-## Development Setup
+## ✨ Features
 
-1. Clone the repository:
-    ```bash
-    git clone <repository-url>
-    ```
-2. Navigate to the project directory:
-    ```bash
-    cd bistro-client
-    ```
-3. Install dependencies:
-    ```bash
-    npm install
-    ```
-4. Start the development server:
-    ```bash
-    npm run dev
-    ```
+### 🛍️ User Features
+- Browse dynamic food menu categorized by type
+- Add items to cart
+- Quantity-based grouping in cart
+- Cart total calculation
+- Responsive mobile-first design
+- Smooth UI with Tailwind transitions
 
-## Expanding the ESLint Configuration
+### 🛠️ Admin Dashboard
+- Manage menu items (Add/Edit/Delete)
+- View and manage all user carts
+- Order management panel
+- User management with role-based access
 
-For production applications, consider using TypeScript and enabling type-aware lint rules. Check out the [TypeScript template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) into your project.
+### 🔒 Authentication
+- Login / Register with JWT
+- Role-based protected routes
+- Auto logout & error handling
 
-## License
+---
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+## 💻 Tech Stack
 
-Happy coding!
+| Frontend         | Backend            | Database       | Others             |
+|------------------|--------------------|----------------|--------------------|
+| React.js         | Node.js            | MongoDB        | Tailwind CSS       |
+| React Router DOM | Express.js         | Mongoose       | DaisyUI            |
+| Axios            | JWT Authentication |                | React Hook Form    |
+
+---
+
+## 📌 TODO
+
+- [ ] Add Stripe payment integration
+- [ ] Real-time order status updates (socket.io)
+- [ ] Deploy frontend on Vercel
+- [ ] Deploy backend on Render
+
+---
+
+## 🖼️ Screenshots
+
+> ![![Home](image-1.png)](src\assets\screenshot\image.png)
+> ![alt text](src\assets\screenshot\image-1.png)
+> ![alt text](src\assets\screenshot\image-2.png)
+> ![alt text](src\assets\screenshot\image-3.png)
+> ![alt text](src\assets\screenshot\image-4.png)
+
+
+---
+
+## 🙌 Author
+
+Made with 💙 by [Ashib Ullah](https://github.com/ashibullah)
+
+---
+
+## 📃 License
+
+MIT © 2025 Bistro Boss
