@@ -20,7 +20,7 @@ export const categoryCoverMap = {
 const Menu = () => {
     const [menu, loading] = useMenu();
     const uniqueCategories = [...new Set(menu.map(item => item.category))];
-    console.log(categoryCoverMap);
+    // console.log(categoryCoverMap);
 
     return (
         <div>

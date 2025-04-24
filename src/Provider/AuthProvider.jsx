@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
 import { axiosInstance } from "../axios/axiosInstance";
+import toast from "react-hot-toast";
 
 export const AuthContext = createContext(null);
 const provider = new GoogleAuthProvider();
@@ -91,6 +92,31 @@ const AuthProvider = ({ children }) => {
         // console.log(groupedCart);
       }, [cart]); 
 
+      const handleRemoveCartItem = (id) => {
+        const updatedCart = cart.filter(item => item._id !== id);
+        setCart(updatedCart);
+        axiosInstance.delete(`/carts/${id}`)
+            .then(response => {
+                toast.success("Item removed from cart successfully!");
+            })
+            .catch(error => {
+                console.error("Failed to remove item:", error);
+            });
+      };
+      const handleCartClear = () => {
+        if(cart.length === 0) {
+            toast.error("Cart is already empty!");
+            return;
+        }
+        setCart([]);
+        axiosInstance.delete(`/carts/clear/${user?.email}`)
+            .then(() => {
+                toast.success("Cart cleared successfully!");
+            })
+            .catch(error => {
+                toast.error("Failed to clear cart:", error);
+            });
+      };
 
     const authInfo = {
         logOut,
@@ -107,8 +133,11 @@ const AuthProvider = ({ children }) => {
         axiosInstance,
         totalAmount,
         groupedCart,
-        
-    };
+        handleRemoveCartItem,
+        setGroupedCart,
+        handleCartClear,
+    }; 
+
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

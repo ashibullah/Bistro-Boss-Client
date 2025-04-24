@@ -5,12 +5,13 @@ import useAuth from '../Hooks/useAuth';
 import { BiCart } from 'react-icons/bi';
 import { RxCross2 } from 'react-icons/rx';
 import { TiDelete } from 'react-icons/ti';
+import { LuDelete } from 'react-icons/lu';
 
 
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { logOut, user, setUser, cart, totalAmount, groupedCart, setGroupedCart } = useAuth();
+  const { logOut, user, setUser, cart, totalAmount, groupedCart, setGroupedCart , handleRemoveCartItem , handleCartClear} = useAuth();
 
   // console.log(groupedCart);
   // console.log(cart);
@@ -85,6 +86,12 @@ const Navbar = () => {
 
                   <span className="font-bold text-sm mb-2">Cart</span>
                   <span className="font-bold text-sm mb-2">Total: <span className='text-green-800'>${totalAmount.toFixed(2)}</span></span>
+                  <div onClick={handleCartClear} className='p-1 px-2 rounded-md cursor-pointer bg-red-600 hover:bg-black text-white font-semibold text-sm flex items-center justify-center gap-2'>
+                    <h1 >Clear All </h1>
+                  <TiDelete className='text-lg hover:rotate-90 transition-transform duration-200' />
+                  </div>
+                  
+                
                 </div>
 
                 {cart && cart.length > 0 ? (
@@ -99,7 +106,7 @@ const Navbar = () => {
                         </div>
 
                         <div className='flex justify-between items-center '>
-                          <p className="text-gray-600 text-xs font-medium">${item.price.toFixed(2)} each</p>
+                          <p className="text-gray-600 text-xs font-medium">${item?.price ? item.price.toFixed(2) : '0.00'} each</p>
                           <span className="text-green-600 text-xs font-semibold">Total: ${(item.price * item.quantity).toFixed(2)}</span>
 
 
@@ -108,10 +115,10 @@ const Navbar = () => {
 
                       </div>
                       <button
-                        onClick={() => handleDelete(item._id)}
-                        className="text-red-600 hover:text-black text-2xl font-bold hover:rotate-90 transition-transform duration-200"
+                        onClick={() => handleRemoveCartItem(item._id)}
+                        className="text-red-600 hover:text-black text-xl font-bold hover:-rotate-90 transition-transform duration-200"
                       >
-                        <TiDelete />
+                       <LuDelete/> 
                       </button>
                     </div>
                     </>
