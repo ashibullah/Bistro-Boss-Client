@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import Bypass from "./PrivateRoute";
+import Dashboard from "../pages/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +42,11 @@ export const router = createBrowserRouter([
         element: <Bypass><Signup/></Bypass>
        }
              
-      ]
+      ],
+    }
+    ,
+    {
+      path : "/dashboard",
+      element : <Dashboard/>
     }
   ]);

@@ -96,7 +96,7 @@ const AuthProvider = ({ children }) => {
         const updatedCart = cart.filter(item => item._id !== id);
         setCart(updatedCart);
         axiosInstance.delete(`/carts/${id}`)
-            .then(response => {
+            .then(() => {
                 toast.success("Item removed from cart successfully!");
             })
             .catch(error => {
