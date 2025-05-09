@@ -2,7 +2,7 @@ import React from 'react';
 import useAuth from '../../Hooks/useAuth';
 
 const Cart = () => {
-    const { groupedCart, totalAmount, handleRemoveCartItem } = useAuth();
+    const { groupedCart, totalAmount, handleRemoveCartItem , handleCartClear} = useAuth();
 
     const handleRemove = (itemId) => {
         handleRemoveCartItem(itemId);
@@ -51,10 +51,10 @@ const Cart = () => {
                                                 {"x " + item.quantity}
                                             </p>
                                         </td>
-                                        <td className='text-left text-lg font-semibold'>$ {item.price}</td>
+                                        <td className='text-left text-lg font-semibold'>$ {item.price.toFixed(2)}</td>
                                         <td>
                                             <p className="text-left text-lg font-semibold text-green-700">
-                                                $ {item.price * item.quantity}
+                                                $ {(item.price * item.quantity).toFixed(2)}
                                             </p>
                                         </td>
                                         <td>
@@ -71,13 +71,13 @@ const Cart = () => {
                             <tr>
                                 <td></td>
                                 <td><button
-                                        onClick={() => handleRemove(item._id)}
+                                        onClick={handleCartClear}
                                         className="btn btn-error btn-sm text-white"
                                     >
                                         Clear Cart
                                     </button></td>
                                 <td className='text-left text-lg font-semibold '>Total Price:</td>
-                                <td className='text-left text-lg font-semibold text-green-700'>$ {totalAmount}</td>
+                                <td className='text-left text-lg font-semibold text-green-700'>$ {totalAmount.toFixed(2)}</td>
                                 <td>
                                     <button
                                         onClick={() => handleRemove(item._id)}

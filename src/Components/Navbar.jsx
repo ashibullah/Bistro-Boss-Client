@@ -86,7 +86,7 @@ const Navbar = () => {
 
                   <span className="font-bold text-sm mb-2">Cart</span>
                   <span className="font-bold text-sm mb-2">Total: <span className='text-green-800'>${totalAmount.toFixed(2)}</span></span>
-                  <div onClick={handleCartClear} className='p-1 px-2 rounded-md cursor-pointer bg-red-600 hover:bg-black text-white font-semibold text-sm flex items-center justify-center gap-2'>
+                  <div onClick={handleCartClear} className={`${(groupedCart.length)? 'cursor-pointer bg-red-600 hover:bg-black' : ''} p-1 px-2 rounded-md  text-white font-semibold text-sm flex items-center justify-center gap-2`}>
                     <h1 >Clear All </h1>
                   <TiDelete className='text-lg hover:rotate-90 transition-transform duration-200' />
                   </div>
