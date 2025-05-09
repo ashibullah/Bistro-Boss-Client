@@ -1,20 +1,17 @@
-import {  useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 
-const Bypass = ({children}) => {
+export const PublicRoute = ({children}) => {
     const {user} = useContext(AuthContext);
     const location = useLocation();
     const from = location.state?.from || "/";
     
-    if(user)return <Navigate to={from} replace />;
+    if(user) return <Navigate to={from} replace />;
     return children;
 };
 
-export default Bypass;
-
-
-export const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children }) => {
     const { user } = useContext(AuthContext);
     const location = useLocation();
 
@@ -23,4 +20,6 @@ export const PrivateRoute = ({ children }) => {
     }
     return children;
 };
+
+export default PrivateRoute;
 

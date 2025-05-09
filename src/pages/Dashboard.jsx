@@ -1,62 +1,32 @@
-import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { FaHome, FaUtensils, FaUsers, FaChartBar, FaShoppingCart } from 'react-icons/fa';
-import { MdOutlineSlideshow } from 'react-icons/md';
+import React from 'react';
+import { BiCalendarEvent, BiCart } from 'react-icons/bi';
+import { FaHome } from 'react-icons/fa';
+import { MdPayment } from 'react-icons/md';
+import { TbBrandBooking } from 'react-icons/tb';
+import { TfiWrite } from 'react-icons/tfi';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const Dashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <aside
-        className={`${
-          isSidebarOpen ? 'w-64' : 'w-16'
-        } bg-orange-900 text-white flex flex-col p-4 transition-all duration-300`}
-      >
-        <button
-          onClick={toggleSidebar}
-          className={`text-white mb-4 w-full flex items-center gap-2 hover:text-orange-400 ${
-            isSidebarOpen ? 'justify-start' : 'justify-center'
-          }`}
-        >
-          <MdOutlineSlideshow className={`text-2xl transform transition-transform duration-300 ${
-            isSidebarOpen ? '-rotate-180' : 'rotate-0'
-          }`} />
-          {isSidebarOpen && <span className="font-bold text-lg">Dashboard</span>}
-        </button>
-        <nav className={`flex flex-col gap-4 ${isSidebarOpen ? '' : 'items-center'}`}>
-          <Link to="/dashboard/home" className={`flex items-center gap-2 hover:text-orange-400 ${isSidebarOpen ? 'w-full' : 'justify-center'}`}>
-            <FaHome className="text-2xl" />
-            {isSidebarOpen && <span>Home</span>}
-          </Link>
-          <Link to="/dashboard/menu" className={`flex items-center gap-2 hover:text-orange-400 ${isSidebarOpen ? 'w-full' : 'justify-center'}`}>
-            <FaUtensils className="text-2xl" />
-            {isSidebarOpen && <span>Manage Menu</span>}
-          </Link>
-          <Link to="/dashboard/users" className={`flex items-center gap-2 hover:text-orange-400 ${isSidebarOpen ? 'w-full' : 'justify-center'}`}>
-            <FaUsers className="text-2xl" />
-            {isSidebarOpen && <span>Manage Users</span>}
-          </Link>
-          <Link to="/dashboard/stats" className={`flex items-center gap-2 hover:text-orange-400 ${isSidebarOpen ? 'w-full' : 'justify-center'}`}>
-            <FaChartBar className="text-2xl" />
-            {isSidebarOpen && <span>Statistics</span>}
-          </Link>
-          <Link to="/dashboard/cart" className={`flex items-center gap-2 hover:text-orange-400 ${isSidebarOpen ? 'w-full' : 'justify-center'}`}>
-            <FaShoppingCart className="text-2xl" />
-            {isSidebarOpen && <span>My Cart</span>}
-          </Link>
-        </nav>
-      </aside>
-
-      {/* Main content */}
-      <main className="flex-1 p-6 bg-gray-100 overflow-y-auto">
-        <Outlet />
-      </main>
+    <div className=''>
+      {/* Slide bar */}
+      <div className='lg:w-[250px] rounded-r-xl bg-gray-700 h-dvh text-white p-5'>
+      <p className='font-bold text-2xl'>Dashboard</p>
+      {/* Navlinks  */}
+      <div className='mt-5 pl-2 font-semibold grid gap-2 text-lg'>
+        <NavLink className={'flex items-center gap-2'} to={'/'}><FaHome/> User Home</NavLink>
+        <NavLink className={'flex items-center gap-2'} to={'/'}><BiCalendarEvent/> Reservation</NavLink>
+        <NavLink className={'flex items-center gap-2'} to={'/'}><MdPayment/> Payment History</NavLink>
+        <hr className='text-gray-400 w-[70%] mt-2 mb-2' />
+        <NavLink className={'flex items-center gap-2'} to={'/dashboard/cart'}><BiCart/> My Cart</NavLink>
+        <NavLink className={'flex items-center gap-2'} to={'/dasboard/addBooking'}><TfiWrite/> Add Review</NavLink>
+        <NavLink className={'flex items-center gap-2'} to={'/'}><TbBrandBooking/> My booking</NavLink>
+      </div>
+      </div>
+      {/* content  */}
+      <div>
+      <Outlet/>
+      </div>
     </div>
   );
 };

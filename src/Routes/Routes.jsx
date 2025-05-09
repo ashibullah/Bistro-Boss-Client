@@ -6,47 +6,49 @@ import OrderNow from "../pages/OrderNow";
 import ContactUs from "../pages/ContactUs";
 import Login from "../pages/Login";
 import Signup from "../pages/SignUp";
-import PrivateRoute from "./PrivateRoute";
-import Bypass from "./PrivateRoute";
+import PrivateRoute, { PublicRoute } from "./PrivateRoute";
 import Dashboard from "../pages/Dashboard";
+import Cart from "../Components/Dashboard/Cart";
 
 export const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children: [
-        
-        {
-          path: "/",
-          element: <Home />
-        },
-       {
-        
-          path: "/menu",
-          element: <Menu />
-       },
-       {
-          path: "/order/:category?",
-          element: <OrderNow />
-       },
-       {
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "/menu",
+        element: <Menu />
+      },
+      {
+        path: "/order/:category?",
+        element: <OrderNow />
+      },
+      {
         path: "/contact",
         element: <ContactUs />
-       },
-       {
+      },
+      {
         path: "/login",
-        element: <Bypass><Login/></Bypass>
-       },
-       {
+        element: <PublicRoute><Login /></PublicRoute>
+      },
+      {
         path: "/signup",
-        element: <Bypass><Signup/></Bypass>
-       }
-             
-      ],
-    }
-    ,
-    {
-      path : "/dashboard",
-      element : <Dashboard/>
-    }
-  ]);
+        element: <PublicRoute><Signup /></PublicRoute>
+      }
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <PrivateRoute><Dashboard /></PrivateRoute>,
+    children: [
+      {
+        path: "cart",
+        element: <Cart />
+      }
+    ]
+  }
+]);
