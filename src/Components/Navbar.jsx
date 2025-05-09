@@ -11,7 +11,7 @@ import { LuDelete } from 'react-icons/lu';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { logOut, user, setUser, cart, totalAmount, groupedCart, setGroupedCart , handleRemoveCartItem , handleCartClear} = useAuth();
+  const { logOut, user, setUser, cart, totalAmount, groupedCart , handleRemoveCartItem , handleCartClear} = useAuth();
 
   // console.log(groupedCart);
   // console.log(cart);
