@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const total = cart.reduce((acc, item) => acc + item.price, 0);
-        setTotalAmount(total);
+        setTotalAmount(total.toFixed(2));
     }, [cart]);
 
 
@@ -72,39 +72,72 @@ const AuthProvider = ({ children }) => {
         }
     }, [user, cart.length]);
 
-    
-    
+
+
 
     useEffect(() => {
         setTotalAmount(cart.reduce((acc, item) => acc + item.price, 0));
-      
+
         const grouped = cart.reduce((acc, item) => {
-          const existingItem = acc.find(i => i._id === item._id);
-          if (existingItem) {
-            existingItem.quantity += 1;
-          } else {
-            acc.push({ ...item, quantity: 1 });
-          }
-          return acc;
+            const existingItem = acc.find(i => i._id === item._id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                acc.push({ ...item, quantity: 1 });
+            }
+            return acc;
         }, []);
         // console.log("Grouped:", grouped);
+        grouped.sort((a, b) => b.quantity - a.quantity);
         setGroupedCart(grouped);
         // console.log(groupedCart);
-      }, [cart]); 
+    }, [cart]);
 
-      const handleRemoveCartItem = (id) => {
-        const updatedCart = cart.filter(item => item._id !== id);
-        setCart(updatedCart);
-        axiosInstance.delete(`/carts/${id}`)
-            .then(() => {
-                toast.success("Item removed from cart successfully!");
-            })
-            .catch(error => {
-                console.error("Failed to remove item:", error);
-            });
+    const handleRemoveCartItem = (id) => {
+        const updatedCart = [...cart];
+        let found = false;
+      
+        for (let i = 0; i < updatedCart.length; i++) {
+          if (updatedCart[i]._id === id) {
+            found = true;
+      
+            if (updatedCart[i].quantity > 1) {
+              updatedCart[i].quantity -= 1;
+      
+              axiosInstance.patch(`/carts/decrement/${id}`)
+                .then(() => {
+                  setCart(updatedCart);
+                  toast.success("One item removed.");
+                })
+                .catch((error) => {
+                  console.error("Decrement failed:", error);
+                });
+      
+            } else {
+              updatedCart.splice(i, 1);
+      
+              axiosInstance.delete(`/carts/${id}`)
+                .then(() => {
+                  setCart(updatedCart);
+                  toast.success("Item removed from cart.");
+                })
+                .catch((error) => {
+                  console.error("Delete failed:", error);
+                });
+            }
+      
+            break;
+          }
+        }
+      
+        if (!found) {
+          toast.error("Item not found.");
+        }
       };
-      const handleCartClear = () => {
-        if(cart.length === 0) {
+      
+
+    const handleCartClear = () => {
+        if (cart.length === 0) {
             toast.error("Cart is already empty!");
             return;
         }
@@ -116,7 +149,7 @@ const AuthProvider = ({ children }) => {
             .catch(error => {
                 toast.error("Failed to clear cart:", error);
             });
-      };
+    };
 
     const authInfo = {
         logOut,
@@ -136,7 +169,7 @@ const AuthProvider = ({ children }) => {
         handleRemoveCartItem,
         setGroupedCart,
         handleCartClear,
-    }; 
+    };
 
     return (
         <AuthContext.Provider value={authInfo}>

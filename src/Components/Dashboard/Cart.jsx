@@ -2,11 +2,10 @@ import React from 'react';
 import useAuth from '../../Hooks/useAuth';
 
 const Cart = () => {
-    const { groupedCart, totalAmount } = useAuth();
+    const { groupedCart, totalAmount, handleRemoveCartItem } = useAuth();
 
     const handleRemove = (itemId) => {
-        // TODO: Implement remove functionality
-        console.log('Removing item:', itemId);
+        handleRemoveCartItem(itemId);
     };
 
     return (
@@ -37,7 +36,7 @@ const Cart = () => {
                                                         <img
                                                             src={item.image}
                                                             alt={item.name + "'s Image"}
-                                                            className="w-full h-full object-cover" 
+                                                            className="w-full h-full object-cover"
                                                         />
                                                     </div>
                                                 </div>
@@ -69,6 +68,26 @@ const Cart = () => {
                                     </tr>
                                 ))
                             }
+                            <tr>
+                                <td></td>
+                                <td><button
+                                        onClick={() => handleRemove(item._id)}
+                                        className="btn btn-error btn-sm text-white"
+                                    >
+                                        Clear Cart
+                                    </button></td>
+                                <td className='text-left text-lg font-semibold '>Total Price:</td>
+                                <td className='text-left text-lg font-semibold text-green-700'>$ {totalAmount}</td>
+                                <td>
+                                    <button
+                                        onClick={() => handleRemove(item._id)}
+                                        className="btn btn-success btn-sm text-white"
+                                    >
+                                        Place Order
+                                    </button>
+                                </td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>
