@@ -14,7 +14,7 @@ const GoogleSignIn = () => {
         const name = user.displayName;
         const userObj = {name , email}
         axiosInstance.post('/users', userObj)
-        .then(res => console.log(res.data))
+        
       })
       .catch((error) => {
         console.error("Google sign-in error:", error);

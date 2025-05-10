@@ -1,36 +1,50 @@
-import React, { useContext } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import GoogleSignIn from '../Components/GoogleSignIn';
-import { AuthContext } from '../Provider/AuthProvider';
+
+import { axiosInstance } from '../axios/axiosInstance';
+import toast from 'react-hot-toast';
+import useAuth from '../Hooks/useAuth';
 
 const Signup = () => {
     const navigate = useNavigate();
-    const { createUser, setUser ,updateUserProfile } = useContext(AuthContext);
+    const { createUser, setUser, updateUserProfile } = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        const { email, password } = data;
+        const { email, password, name } = data;
         createUser(email, password)
             .then((result) => {
                 const user = result.user;
-                setUser(user);
-                const defImg = 'https://th.bing.com/th/id/OIP.SJouM0O5VwvVjWEmGGdBLQHaHa?rs=1&pid=ImgDetMain';
-                
+                const email = user.email;
+                const userObj = { name, email }
+                axiosInstance.post('/users', userObj)
 
-                updateUserProfile({ photoURL: defImg, displayName: data.name })
-                    .then((result) => {
-                        console.log("User profile updated:", result.user);
+                setUser(user);
+                const defImg = 'https://static.vecteezy.com/system/resources/previews/020/765/399/large_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg';
+
+                updateUserProfile({ photoURL: defImg, displayName: name })
+                    .then(() => {
+                        toast.success('Profile created successfully!');
                     })
                     .catch((error) => {
+                        toast.error('Error Updating Profile')
                         console.error("Error updating user profile:", error);
                     });
                 navigate('/');
+
             })
             .catch((error) => {
-                console.error("Signup error:", error);
+                console.log(error);
+                if (error.code === 'auth/email-already-in-use') {
+                    toast.error('This email is already registered!');
+                } else {
+                    toast.error(error.message || 'An error occurred during registration');
+                }
             });
     };
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">

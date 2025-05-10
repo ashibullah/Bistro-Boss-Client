@@ -18,9 +18,6 @@ const AuthProvider = ({ children }) => {
     const [groupedCart, setGroupedCart] = useState([]);
 
 
-
-
-
     useEffect(() => {
         const total = cart.reduce((acc, item) => acc + item.price, 0);
         setTotalAmount(total.toFixed(2));
