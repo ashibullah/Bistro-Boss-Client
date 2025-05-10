@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from '../Provider/AuthProvider';
+import { axiosInstance } from '../axios/axiosInstance';
 
 const GoogleSignIn = () => {
   const { googleSignIn } = useContext(AuthContext);
@@ -8,7 +9,12 @@ const GoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
         const user = result.user;
-        console.log("Google sign-in successful:", user);
+        // console.log("Google sign-in successful:", user);
+        const email = user.email;
+        const name = user.displayName;
+        const userObj = {name , email}
+        axiosInstance.post('/users', userObj)
+        .then(res => console.log(res.data))
       })
       .catch((error) => {
         console.error("Google sign-in error:", error);

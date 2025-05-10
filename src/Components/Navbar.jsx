@@ -44,7 +44,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center">
             <NavLink className="btn btn-ghost normal-case" to="/">Home</NavLink>
             <NavLink to="/contact" className="btn btn-ghost normal-case">Contact Us</NavLink>
-            <NavLink className="btn btn-ghost normal-case" to="/dashboard">Dashboard</NavLink>
+            <NavLink className="btn btn-ghost normal-case" to="/dashboard/cart">Dashboard</NavLink>
             <NavLink to="/menu" className="btn btn-ghost normal-case">Our Menu</NavLink>
             <NavLink to="/order" className="btn btn-ghost normal-case">Order Now</NavLink>
 
@@ -153,7 +153,7 @@ const Navbar = () => {
         <ul className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-52 absolute right-4 top-16 text-black lg:hidden">
           <li><NavLink to="/">Home</NavLink></li>
           <li><NavLink to="/contact">Contact Us</NavLink></li>
-          <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+          <li><NavLink to="/dashboard/cart">Dashboard</NavLink></li>
           <li><NavLink to="/menu">Our Menu</NavLink></li>
           <li><NavLink to="/order">Order Now</NavLink></li>
           {user ? (
