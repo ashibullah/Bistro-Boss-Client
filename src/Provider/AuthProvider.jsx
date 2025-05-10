@@ -16,12 +16,33 @@ const AuthProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [groupedCart, setGroupedCart] = useState([]);
+    const [isAdmin, setAdmin] = useState(false);
 
 
     useEffect(() => {
         const total = cart.reduce((acc, item) => acc + item.price, 0);
         setTotalAmount(total.toFixed(2));
     }, [cart]);
+
+
+   const adminCheck = () => {
+    const email = user?.email;
+    if (!email) {
+        console.log('No user email found');
+        return;
+    }
+    axiosInstance.get(`/user/${email}`)
+        .then(res => {
+            const user = res.data; 
+            if(user.role === 'admin'){
+                setAdmin(true);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user:', error);
+        });
+};
+
 
 
     const createUser = (email, password) => {
@@ -33,6 +54,7 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
     const logOut = () => {
+        setAdmin(false);
         return signOut(auth);
     }
 
@@ -50,7 +72,7 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
-
+            
         });
         return () => unsubscribe();
     }, []);
@@ -166,6 +188,8 @@ const AuthProvider = ({ children }) => {
         handleRemoveCartItem,
         setGroupedCart,
         handleCartClear,
+        adminCheck,
+        isAdmin
     };
 
     return (

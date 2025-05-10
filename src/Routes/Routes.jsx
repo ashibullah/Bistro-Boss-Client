@@ -6,7 +6,7 @@ import OrderNow from "../pages/OrderNow";
 import ContactUs from "../pages/ContactUs";
 import Login from "../pages/Login";
 import Signup from "../pages/SignUp";
-import PrivateRoute, { PublicRoute } from "./PrivateRoute";
+import PrivateRoute, { AdminRoute, PublicRoute } from "./PrivateRoute";
 import Dashboard from "../pages/Dashboard";
 import Cart from "../Components/Dashboard/Cart";
 
@@ -48,7 +48,11 @@ export const router = createBrowserRouter([
       {
         path: "cart",
         element: <Cart />
-      }
+      },
+      {
+        path: "allUser",
+        element: <AdminRoute><Cart /></AdminRoute>
+      },
     ]
   }
 ]);
