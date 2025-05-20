@@ -9,6 +9,7 @@ import Signup from "../pages/SignUp";
 import PrivateRoute, { AdminRoute, PublicRoute } from "./PrivateRoute";
 import Dashboard from "../pages/Dashboard";
 import Cart from "../Components/Dashboard/Cart";
+import DasboardMenu from "../Components/Dashboard/DashboardMenu";
 import AllUsers from "../Components/Dashboard/AllUsers";
 import AddReview from "../Components/Dashboard/AddReview";
 
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path: "allUser",
         element: <AdminRoute><AllUsers /></AdminRoute>
+      },
+      {
+        path: "menu",
+        element: <AdminRoute><DasboardMenu /></AdminRoute>
       },
     ]
   }

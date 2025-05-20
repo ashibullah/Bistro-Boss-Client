@@ -170,6 +170,19 @@ const AuthProvider = ({ children }) => {
             });
     };
 
+
+
+
+    const [menu, setMenu] = useState([]);
+    useEffect(() => {
+        axiosInstance.get('/menu')
+            .then(res =>{
+                setMenu(res.data);
+            })
+            .catch(error => console.error('Error fetching menu:', error));
+
+    }, []);
+
     const authInfo = {
         logOut,
         signInUser,
@@ -189,7 +202,9 @@ const AuthProvider = ({ children }) => {
         setGroupedCart,
         handleCartClear,
         adminCheck,
-        isAdmin
+        isAdmin,
+        menu,
+        setMenu
     };
 
     return (
