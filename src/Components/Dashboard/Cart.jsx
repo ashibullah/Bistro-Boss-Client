@@ -8,6 +8,14 @@ const Cart = () => {
         handleRemoveCartItem(itemId);
     };
 
+    if (groupedCart.length === 0) {
+        return (
+            <div className='flex flex-col items-center justify-center h-screen'>
+                <h1 className='text-3xl font-bold'>Your Cart is Empty</h1>
+                <p className='text-lg'>Add some items to your cart!</p>
+            </div>
+        );
+    }
     return (
         <div className=''>
             <p className='font-semibold text-3xl'>Your Cart</p>
