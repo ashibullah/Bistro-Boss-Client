@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../../axios/axiosInstance";
 import { FaUserShield, FaUserTimes, FaTrashAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
 
 const AllUsers = () => {
     const [allUsers, setAllUsers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const {user} = useAuth();
+
 
     useEffect(() => {
         fetchUsers();
@@ -132,36 +135,39 @@ const AllUsers = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {allUsers.map((user, index) => (
-                            <tr key={user._id}>
+                        {allUsers.map((userlist, index) => (
+                            <tr key={userlist._id}>
                                 <td>{index + 1}</td>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
+                                <td>{userlist.name}</td>
+                                <td>{userlist.email}</td>
                                 <td>
-                                    {user.role === 'admin' ? 'Admin' : 'Normal User'}
+                                    {userlist.role === 'admin' ? 'Admin' : 'Normal User'}
                                 </td>
                                 <td>
-                                    {user.role === 'admin' ? (
+                                    {userlist.role === 'admin' ? (
                                         <button
-                                            onClick={() => handleRemoveAdmin(user)}
+                                            onClick={() => handleRemoveAdmin(userlist)}
                                             className="btn btn-ghost btn-xs tooltip"
                                             data-tip="Remove Admin"
+                                            disabled={user.email === userlist.email}
                                         >
-                                            <FaUserTimes className="text-lg text-red-600" />
+                                            <FaUserTimes className={`text-lg  ${user.email === userlist.email ? 'text-gray-600 opacity-20' : 'text-red-600'}`} />
                                         </button>
                                     ) : (
                                         <button
-                                            onClick={() => handleMakeAdmin(user)}
-                                            className="btn btn-ghost btn-xs tooltip"
+                                            onClick={() => handleMakeAdmin(userlist )}
+                                            className="btn btn-ghost btn-xs tooltip disabled"
                                             data-tip="Make Admin"
+                                            
                                         >
+                                            
                                             <FaUserShield className="text-lg text-green-600" />
                                         </button>
                                     )}
                                 </td>
                                 <td>
                                     <button
-                                        onClick={() => handleDeleteUser(user)}
+                                        onClick={() => handleDeleteUser(userlist)}
                                         className="btn btn-ghost btn-xs tooltip"
                                         data-tip="Remove User"
                                     >
