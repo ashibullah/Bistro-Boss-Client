@@ -28,7 +28,7 @@ const Dashboard = () => {
           <NavLink className={'flex items-center gap-2'} to={'/'}><MdPayment /> Payment History</NavLink>
           <hr className='text-gray-400 w-[70%] mt-2 mb-2' />
           <NavLink className={'flex items-center gap-2'} to={'/dashboard/cart'}><BiCart /> My Cart</NavLink>
-          <NavLink className={'flex items-center gap-2'} to={'/dasboard/addBooking'}><TfiWrite /> Add Review</NavLink>
+          <NavLink className={'flex items-center gap-2'} to={'/dashboard/addReview'}><TfiWrite /> Add Review</NavLink>
           <NavLink className={'flex items-center gap-2'} to={'/'}><TbBrandBooking /> My booking</NavLink>
           {
             (isAdmin) && <>

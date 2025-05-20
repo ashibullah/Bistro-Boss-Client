@@ -128,6 +128,7 @@ const Navbar = () => {
                 )}
 
               </div>
+              <NavLink to={'/dashboard/cart'} className='btn' >Details</NavLink>
             </div>
 
           </div>
