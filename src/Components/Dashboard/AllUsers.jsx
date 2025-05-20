@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../axios/axiosInstance";
-import { FaUserShield, FaUserTimes } from "react-icons/fa";
+import { FaUserShield, FaUserTimes, FaTrashAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 const AllUsers = () => {
@@ -24,32 +24,88 @@ const AllUsers = () => {
             });
     };
 
+    const showConfirmationToast = ({ user, title, message, action, successMessage, errorMessage, confirmButton = 'Confirm', confirmClass = 'bg-green-500 hover:bg-green-600' }) => {
+        toast((t) => (
+            <div className="flex flex-col items-center gap-3 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+                <div className="text-xl font-semibold text-red-600">{title}</div>
+                <div className="text-gray-600 dark:text-gray-300">
+                    {message} <span className="font-semibold">{user.name}</span>?
+                </div>
+                <div className="flex items-center gap-4 mt-2">
+                    <button
+                        onClick={() => {
+                            toast.dismiss(t.id);
+                            action()
+                                .then(res => {
+                                    if (res.data.modifiedCount > 0 || res.data.deletedCount > 0) {
+                                        toast.success(successMessage);
+                                        fetchUsers();
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                    toast.error(errorMessage);
+                                });
+                        }}
+                        className={`px-4 py-2 text-white rounded transition-colors ${confirmClass}`}
+                    >
+                        {confirmButton}
+                    </button>
+                    <button
+                        onClick={() => toast.dismiss(t.id)}
+                        className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        ), {
+            duration: 6000,
+            style: {
+                background: 'transparent',
+                boxShadow: 'none',
+                padding: '0',
+            },
+        });
+    };
+
     const handleMakeAdmin = (user) => {
-        axiosInstance.patch(`/users/admin/${user._id}`)
-            .then(res => {
-                if(res.data.modifiedCount > 0) {
-                    toast.success(`${user.name} is now an admin`);
-                    fetchUsers(); // Refresh the user list
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                toast.error('Failed to make admin');
-            });
+        showConfirmationToast({
+            user,
+            title: 'Make Admin',
+            message: 'Are you sure you want to make',
+            action: () => axiosInstance.patch(`/users/admin/${user._id}`),
+            successMessage: `${user.name} is now an admin`,
+            errorMessage: 'Failed to make admin',
+            confirmButton: 'Make Admin',
+            confirmClass: 'bg-green-500 hover:bg-green-600'
+        });
     };
 
     const handleRemoveAdmin = (user) => {
-        axiosInstance.patch(`/users/remove-admin/${user._id}`)
-            .then(res => {
-                if(res.data.modifiedCount > 0) {
-                    toast.success(`${user.name} is no longer an admin`);
-                    fetchUsers(); // Refresh the user list
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                toast.error('Failed to remove admin');
-            });
+        showConfirmationToast({
+            user,
+            title: 'Remove Admin',
+            message: 'Are you sure you want to remove admin rights from',
+            action: () => axiosInstance.patch(`/users/remove-admin/${user._id}`),
+            successMessage: `${user.name} is no longer an admin`,
+            errorMessage: 'Failed to remove admin',
+            confirmButton: 'Remove Admin',
+            confirmClass: 'bg-orange-500 hover:bg-orange-600'
+        });
+    };
+
+    const handleDeleteUser = (user) => {
+        showConfirmationToast({
+            user,
+            title: 'Delete User',
+            message: 'Are you sure you want to delete',
+            action: () => axiosInstance.delete(`/users/${user._id}`),
+            successMessage: `${user.name} has been removed`,
+            errorMessage: 'Failed to delete user',
+            confirmButton: 'Delete',
+            confirmClass: 'bg-red-500 hover:bg-red-600'
+        });
     };
 
     if (loading) {
@@ -61,7 +117,7 @@ const AllUsers = () => {
     return (
         <div className="w-full p-4">
             <h2 className="text-2xl font-semibold mb-4">All Users: {allUsers.length}</h2>
-            
+
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full">
                     {/* head */}
@@ -71,7 +127,8 @@ const AllUsers = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Action</th>
+                            <th>Admin Action</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,6 +158,15 @@ const AllUsers = () => {
                                             <FaUserShield className="text-lg text-green-600" />
                                         </button>
                                     )}
+                                </td>
+                                <td>
+                                    <button
+                                        onClick={() => handleDeleteUser(user)}
+                                        className="btn btn-ghost btn-xs tooltip"
+                                        data-tip="Remove User"
+                                    >
+                                        <FaTrashAlt className="text-lg text-red-600" />
+                                    </button>
                                 </td>
                             </tr>
                         ))}
