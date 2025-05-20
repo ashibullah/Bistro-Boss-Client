@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../axios/axiosInstance";
-import { FaUserShield } from "react-icons/fa";
+import { FaUserShield, FaUserTimes } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 const AllUsers = () => {
@@ -22,7 +22,9 @@ const AllUsers = () => {
                 setLoading(false);
                 toast.error('Failed to load users');
             });
-    };    const handleMakeAdmin = (user) => {
+    };
+
+    const handleMakeAdmin = (user) => {
         axiosInstance.patch(`/users/admin/${user._id}`)
             .then(res => {
                 if(res.data.modifiedCount > 0) {
@@ -33,6 +35,20 @@ const AllUsers = () => {
             .catch(error => {
                 console.error(error);
                 toast.error('Failed to make admin');
+            });
+    };
+
+    const handleRemoveAdmin = (user) => {
+        axiosInstance.patch(`/users/remove-admin/${user._id}`)
+            .then(res => {
+                if(res.data.modifiedCount > 0) {
+                    toast.success(`${user.name} is no longer an admin`);
+                    fetchUsers(); // Refresh the user list
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                toast.error('Failed to remove admin');
             });
     };
 
@@ -68,12 +84,21 @@ const AllUsers = () => {
                                     {user.role === 'admin' ? 'Admin' : 'Normal User'}
                                 </td>
                                 <td>
-                                    {user.role !== 'admin' && (
+                                    {user.role === 'admin' ? (
+                                        <button
+                                            onClick={() => handleRemoveAdmin(user)}
+                                            className="btn btn-ghost btn-xs tooltip"
+                                            data-tip="Remove Admin"
+                                        >
+                                            <FaUserTimes className="text-lg text-red-600" />
+                                        </button>
+                                    ) : (
                                         <button
                                             onClick={() => handleMakeAdmin(user)}
-                                            className="btn btn-ghost btn-xs"
+                                            className="btn btn-ghost btn-xs tooltip"
+                                            data-tip="Make Admin"
                                         >
-                                            <FaUserShield className="text-lg text-orange-600" />
+                                            <FaUserShield className="text-lg text-green-600" />
                                         </button>
                                     )}
                                 </td>
