@@ -2,7 +2,7 @@
 import { BiCalendarEvent, BiCart, BiMenu, BiUser } from 'react-icons/bi';
 import { FaHome } from 'react-icons/fa';
 import { MdPayment } from 'react-icons/md';
-import { TbBrandBooking } from 'react-icons/tb';
+import { TbBrandBooking, TbMenuOrder } from 'react-icons/tb';
 import { TfiWrite } from 'react-icons/tfi';
 import { NavLink, Outlet } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
@@ -36,6 +36,7 @@ const Dashboard = () => {
               <hr className='text-gray-400 w-[70%] mt-2 mb-2' />
               <NavLink className={'flex items-center gap-2'} to={'/dashboard/allUser'}><BiUser /> All User</NavLink>
               <NavLink className={'flex items-center gap-2'} to={'/dashboard/menu'}><BiMenu /> Menu</NavLink>
+              <NavLink className={'flex items-center gap-2'} to={'/dashboard/orderRequest'}><TbMenuOrder /> Order Request</NavLink>
             </>
           }
 

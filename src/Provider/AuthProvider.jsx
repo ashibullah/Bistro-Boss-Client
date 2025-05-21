@@ -107,7 +107,8 @@ const AuthProvider = ({ children }) => {
             return acc;
         }, []);
         // console.log("Grouped:", grouped);
-        grouped.sort((a, b) => b.quantity - a.quantity);
+        grouped.sort((a, b) => a.name.localeCompare(b.name));
+
         setGroupedCart(grouped);
         // console.log(groupedCart);
     }, [cart]);

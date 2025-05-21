@@ -12,6 +12,7 @@ import Cart from "../Components/Dashboard/Cart";
 import DasboardMenu from "../Components/Dashboard/DashboardMenu";
 import AllUsers from "../Components/Dashboard/AllUsers";
 import AddReview from "../Components/Dashboard/AddReview";
+import OrderRequest from "../Components/Dashboard/OrderRequest";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
       {
         path: "menu",
         element: <AdminRoute><DasboardMenu /></AdminRoute>
+      },
+      {
+        path: "orderRequest",
+        element: <AdminRoute><OrderRequest /></AdminRoute>
       },
     ]
   }
