@@ -1,5 +1,6 @@
 import React from 'react';
 import SectionTittle from './Shared/SectionTittle';
+import { Link } from 'react-router-dom';
 
 const Featureditem = () => {
     return (
@@ -22,7 +23,7 @@ const Featureditem = () => {
                     <h3 className="text-2xl font-bold  uppercase">Where can I get some?</h3>
                     <p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque!</p>
 
-                    <p className=" btn  bg-amber-300 ">Order Now!</p>
+                    <Link to={'/order'} className=" btn  bg-amber-300 ">Order Now!</Link>
                 </div>
             </div>
         </div>

@@ -1,17 +1,22 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
+import useAuth from "../Hooks/useAuth";
 
 export const OrderRequestContext = createContext(null);
+
 const OrderRequestProvider = ({ children }) => {
-    
+    const { groupedCart } = useAuth();
+    const [orderRequest, setOrderRequest] = useState(null);
+
     const orderInfo = {
-            
-        };
-    
-        return (
-            <OrderRequestContext.Provider value={orderInfo}>
-                {children}
-            </OrderRequestContext.Provider>
-        );
+        orderRequest,
+        setOrderRequest
+    };
+
+    return (
+        <OrderRequestContext.Provider value={orderInfo}>
+            {children}
+        </OrderRequestContext.Provider>
+    );
 };
 
 export default OrderRequestProvider;

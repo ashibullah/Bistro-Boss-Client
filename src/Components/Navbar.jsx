@@ -95,10 +95,10 @@ const Navbar = () => {
                 </div>
 
                 {cart && cart.length > 0 ? (
-                  groupedCart.map((item) => (
+                  groupedCart.map((item,idx) => (
                     
                     <>
-                    <div key={item.cartId} className="flex items-center gap-2 bg-white shadow-sm rounded p-2 mb-2">
+                    <div key={idx} className="flex items-center gap-2 bg-white shadow-sm rounded p-2 mb-2">
                       <img src={item.image} alt={item.name} className="w-12 h-12 rounded object-cover" />
                       <div className="flex-1">
                         <div className='grid grid-cols-4 gap-2'>

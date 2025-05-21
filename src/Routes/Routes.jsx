@@ -14,7 +14,7 @@ import AllUsers from "../Components/Dashboard/AllUsers";
 import AddReview from "../Components/Dashboard/AddReview";
 import OrderRequest from "../Components/Dashboard/OrderRequest";
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
@@ -72,3 +72,5 @@ export const router = createBrowserRouter([
     ]
   }
 ]);
+
+export default router;

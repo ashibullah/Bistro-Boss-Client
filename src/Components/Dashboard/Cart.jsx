@@ -1,11 +1,40 @@
 import React from 'react';
 import useAuth from '../../Hooks/useAuth';
+import { axiosInstance } from '../../axios/axiosInstance';
+import toast from 'react-hot-toast';
 
 const Cart = () => {
-    const { groupedCart, totalAmount, handleRemoveCartItem , handleCartClear} = useAuth();
+    const { groupedCart, totalAmount, handleRemoveCartItem, handleCartClear, user } = useAuth();
 
     const handleRemove = (itemId) => {
         handleRemoveCartItem(itemId);
+    };
+
+    const handlePlaceOrder = async () => {
+        try {
+            const orderData = {
+                email: user?.email,
+                items: groupedCart.map(item => item._id), // array of menu IDs
+                quantities: groupedCart.map(item => item.quantity), // array of quantities
+                prices: groupedCart.map(item => item.price), // array of prices
+                totalAmount: totalAmount,
+                status: 'pending',
+                orderDate: new Date(),
+                customerName: user?.displayName
+            };
+
+            const response = await axiosInstance.post('/orders', orderData);
+            
+            if (response.data.insertedId) {
+                handleCartClear(); // Clear the cart after successful order
+                toast.success('Order placed successfully!');
+                // Play notification sound
+                new Audio('/notification.mp3').play();
+            }
+        } catch (error) {
+            console.error('Error placing order:', error);
+            toast.error('Failed to place order');
+        }
     };
 
     if (groupedCart.length === 0) {
@@ -88,7 +117,7 @@ const Cart = () => {
                                 <td className='text-left text-lg font-semibold text-green-700'>$ {totalAmount.toFixed(2)}</td>
                                 <td>
                                     <button
-                                        onClick={() => handleRemove(item._id)}
+                                        onClick={() => handlePlaceOrder()}
                                         className="btn btn-success btn-sm text-white"
                                     >
                                         Place Order
