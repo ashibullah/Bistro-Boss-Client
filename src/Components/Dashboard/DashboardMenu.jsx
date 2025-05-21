@@ -32,15 +32,47 @@ const DashboardMenu = () => {
         }
     };
 
-    const handleDelete = async (itemId) => {
-        try {
-            await axiosInstance.delete(`/menu/${itemId}`);
-            toast.success('Item deleted successfully');
-            fetchMenu();
-        } catch (error) {
-            console.error('Error deleting item:', error);
-            toast.error('Failed to delete item');
-        }
+    const handleDelete = (itemId) => {
+        toast((t) => (
+            <div className="flex flex-col items-center gap-3">
+                <p className="text-lg">Are you sure you want to delete this item?</p>
+                <div className="flex gap-4">
+                    <button
+                        className="px-4 py-2 bg-red-500 text-white rounded"
+                        onClick={() => {
+                            toast.dismiss(t.id);
+                            axiosInstance.delete(`/menu/${itemId}`)
+                                .then(res => {
+                                    console.log(res);
+                                    if (res.data.deletedCount > 0) {
+                                        toast.success('Item deleted successfully');
+                                        fetchMenu();
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    toast.error('Failed to delete item');
+                                });
+                        }}
+                    >
+                        Delete
+                    </button>
+                    <button
+                        className="px-4 py-2 bg-gray-200 rounded"
+                        onClick={() => toast.dismiss(t.id)}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        ), {
+            duration: 5000,
+            style: {
+                background: '#333',
+                color: 'white',
+                padding: '1rem',
+            },
+        });
     };
 
     const handleEdit = (item) => {
@@ -69,18 +101,37 @@ const DashboardMenu = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Convert price to number
+        const itemData = {
+            ...formData,
+            price: parseFloat(formData.price)
+        };
+        // console.log(itemData);
+
         try {
             if (editItem) {
-                await axiosInstance.patch(`/menu/${editItem._id}`, formData);
-                toast.success('Item updated successfully');
-            } else {
-                await axiosInstance.post('/menu', formData);
-                toast.success('Item added successfully');
+                // console.log("inside if ")
+                // console.log(itemData);
+                const res = await axiosInstance.patch(`/menu/${editItem._id}`, itemData);
+                // console.log(res);
+                if (res.statusText === 'OK') {
+                    // console.log(res)
+                    toast.success('Item updated successfully');
+                    setIsModalOpen(false);
+                    fetchMenu();
+                }
+            } 
+            else {
+                const res = await axiosInstance.post('/menu', itemData);
+                if (res.data.insertedId) {
+                    toast.success('Item added successfully');
+                    setIsModalOpen(false);
+                    fetchMenu();
+                }
             }
-            setIsModalOpen(false);
-            fetchMenu();
         } catch (error) {
-            console.error('Error saving item:', error);
+            console.error('Error:', error);
             toast.error(editItem ? 'Failed to update item' : 'Failed to add item');
         }
     };
@@ -226,6 +277,7 @@ const DashboardMenu = () => {
                                     <option value="soup">Soup</option>
                                     <option value="dessert">Dessert</option>
                                     <option value="drinks">Drinks</option>
+                                    <option value="popular">Popular</option>
                                 </select>
                             </div>
                             <div>
