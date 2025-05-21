@@ -96,6 +96,7 @@ const Navbar = () => {
 
                 {cart && cart.length > 0 ? (
                   groupedCart.map((item) => (
+                    
                     <>
                     <div key={item.cartId} className="flex items-center gap-2 bg-white shadow-sm rounded p-2 mb-2">
                       <img src={item.image} alt={item.name} className="w-12 h-12 rounded object-cover" />

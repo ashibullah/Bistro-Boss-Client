@@ -19,7 +19,8 @@ const Dashboard = () => {
   return (
     <div className='flex'>
       {/* Slide bar */}
-      <div className='lg:w-[300px] rounded-r-xl bg-gray-700 h-dvh text-white p-5'>
+<div className='lg:w-[300px] sticky top-0 rounded-r-xl bg-gray-700 h-dvh text-white p-5'>
+
         <p className='font-bold text-2xl'>Dashboard</p>
         {/* Navlinks  */}
         <div className='mt-5 pl-2 font-semibold grid gap-2 text-lg'>
