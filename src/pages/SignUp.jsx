@@ -22,7 +22,7 @@ const Signup = () => {
                 axiosInstance.post('/users', userObj)
 
                 setUser(user);
-                const defImg = 'https://static.vecteezy.com/system/resources/previews/020/765/399/large_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg';
+                const defImg = 'https://th.bing.com/th/id/OIP.SJouM0O5VwvVjWEmGGdBLQHaHa?rs=1&pid=ImgDetMain';
 
                 updateUserProfile({ photoURL: defImg, displayName: name })
                     .then(() => {

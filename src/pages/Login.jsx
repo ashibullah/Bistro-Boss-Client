@@ -56,6 +56,17 @@ const Login = () => {
                         className="w-full py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition"
                     >
                         Login
+                    </button>                    <button
+                        type="button"
+                        onClick={() => {
+                            const emailInput = document.querySelector('input[name="email"]');
+                            const passwordInput = document.querySelector('input[name="password"]');
+                            emailInput.value = 'admin@demo.com';
+                            passwordInput.value = 'Admin123.';
+                        }}
+                        className="w-full py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+                    >
+                        Demo Admin
                     </button>
                 </form>
                 <p className="mt-4 text-center text-sm text-gray-600">
