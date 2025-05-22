@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
    const adminCheck = () => {
     const email = user?.email;
     if (!email) {
-        console.log('No user email found');
+        // console.log('No user email found');
         return;
     }
     axiosInstance.get(`/user/${email}`)

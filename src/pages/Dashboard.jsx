@@ -1,6 +1,6 @@
 
-import { BiCalendarEvent, BiCart, BiMenu, BiUser } from 'react-icons/bi';
-import { FaHome } from 'react-icons/fa';
+import { BiCalendarEvent, BiCart, BiListCheck, BiMenu, BiUser } from 'react-icons/bi';
+import { FaHome, FaJediOrder } from 'react-icons/fa';
 import { MdPayment } from 'react-icons/md';
 import { TbBrandBooking, TbMenuOrder } from 'react-icons/tb';
 import { TfiWrite } from 'react-icons/tfi';
@@ -25,12 +25,11 @@ const Dashboard = () => {
         {/* Navlinks  */}
         <div className='mt-5 pl-2 font-semibold grid gap-2 text-lg'>
           <NavLink className={'flex items-center gap-2'} to={'/'}><FaHome /> User Home</NavLink>
-          <NavLink className={'flex items-center gap-2'} to={'/'}><BiCalendarEvent /> Reservation</NavLink>
-          <NavLink className={'flex items-center gap-2'} to={'/'}><MdPayment /> Payment History</NavLink>
+          
           <hr className='text-gray-400 w-[70%] mt-2 mb-2' />
           <NavLink className={'flex items-center gap-2'} to={'/dashboard/cart'}><BiCart /> My Cart</NavLink>
           <NavLink className={'flex items-center gap-2'} to={'/dashboard/addReview'}><TfiWrite /> Add Review</NavLink>
-          <NavLink className={'flex items-center gap-2'} to={'/'}><TbBrandBooking /> My booking</NavLink>
+          <NavLink className={'flex items-center gap-2'} to={'/dashboard/userOrders'}><BiListCheck /> My Orders</NavLink>
           {
             (isAdmin) && <>
               <hr className='text-gray-400 w-[70%] mt-2 mb-2' />

@@ -13,6 +13,7 @@ import DasboardMenu from "../Components/Dashboard/DashboardMenu";
 import AllUsers from "../Components/Dashboard/AllUsers";
 import AddReview from "../Components/Dashboard/AddReview";
 import OrderRequest from "../Components/Dashboard/OrderRequest";
+import UserOrder from "../Components/Dashboard/UserOrder";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "addReview",
         element: <AddReview />
+      },
+      {
+        path: "userOrders",
+        element: <UserOrder />
       },
       {
         path: "allUser",

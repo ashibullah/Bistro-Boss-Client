@@ -11,7 +11,7 @@ const OrderRequestProvider = ({ children }) => {
     const [orderRequest, setOrderRequest] = useState(null);
     const [unreadOrders, setUnreadOrders] = useState(0);
     const [lastCheckedTime, setLastCheckedTime] = useState(Date.now());
-    const { isAdmin, user , adminCheck } = useAuth();
+    const { isAdmin , adminCheck } = useAuth();
 
     // Add console.log to debug
     adminCheck();
@@ -19,7 +19,7 @@ const OrderRequestProvider = ({ children }) => {
     useEffect(() => {
         // Socket connection
         socket.on('connect', () => {
-            console.log('Connected to socket server');
+            // console.log('Connected to socket server');
         });
 
         // Listen for new orders
