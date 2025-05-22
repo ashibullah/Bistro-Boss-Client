@@ -1,13 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { axiosInstance } from '../../axios/axiosInstance';
 import toast from 'react-hot-toast';
+import useAuth from '../../Hooks/useAuth';
 
 const OrderRequest = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [lastOrderTime, setLastOrderTime] = useState(Date.now());
 
-    const fetchOrders = useCallback(async () => {
+    const fetchOrders = async () => {
         try {
             const response = await axiosInstance.get('/orders');
             setOrders(response.data);
@@ -17,20 +18,18 @@ const OrderRequest = () => {
             if (latestOrder && new Date(latestOrder.orderDate).getTime() > lastOrderTime) {
                 // Play notification for new order
                 new Audio('/notification.mp3').play();
-                toast.custom((t) => (
-                    <div className="flex flex-col items-center gap-2 bg-white p-4 rounded-lg shadow-lg">
+                toast((t) => (
+                    <div className="flex flex-col items-center gap-2">
                         <p className="font-semibold">New Order Received!</p>
                         <p>From: {latestOrder.customerName}</p>
                         <p>Amount: ${latestOrder.totalAmount.toFixed(2)}</p>
-                        <button 
-                            onClick={() => toast.dismiss(t.id)}
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                        >
-                            View Order
-                        </button>
                     </div>
                 ), {
                     duration: 10000,
+                    style: {
+                        background: '#333',
+                        color: 'white',
+                    },
                 });
                 setLastOrderTime(new Date(latestOrder.orderDate).getTime());
             }
@@ -41,13 +40,14 @@ const OrderRequest = () => {
             toast.error('Failed to load orders');
             setLoading(false);
         }
-    }, [lastOrderTime]);
+    };
 
     useEffect(() => {
         fetchOrders();
+        // Poll for new orders every 30 seconds
         const interval = setInterval(fetchOrders, 30000);
         return () => clearInterval(interval);
-    }, [fetchOrders]);
+    }, []);
 
     const handleStatusChange = async (orderId, newStatus) => {
         try {
