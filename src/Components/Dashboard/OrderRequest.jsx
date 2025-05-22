@@ -18,9 +18,10 @@ const OrderRequest = () => {
             if (latestOrder && new Date(latestOrder.orderDate).getTime() > lastOrderTime) {
                 // Play notification for new order
                 new Audio('/notification.mp3').play();
+                
                 toast((t) => (
                     <div className="flex flex-col items-center gap-2">
-                        <p className="font-semibold">New Order Received!</p>
+                        <p className="font-semibold">New Order!</p>
                         <p>From: {latestOrder.customerName}</p>
                         <p>Amount: ${latestOrder.totalAmount.toFixed(2)}</p>
                     </div>

@@ -29,7 +29,7 @@ const Cart = () => {
                 handleCartClear(); // Clear the cart after successful order
                 toast.success('Order placed successfully!');
                 // Play notification sound
-                new Audio('/notification.mp3').play();
+                new Audio('/cartNotification.mp3').play();
             }
         } catch (error) {
             console.error('Error placing order:', error);
