@@ -1,4 +1,141 @@
-# 🍽️ Bistro Boss
+# 🍽️ Bistro Boss - Restaurant Management System
+
+## Features
+
+### Customer Features
+- 🛒 **Shopping Cart Management**
+  - Add/remove items
+  - Quantity management
+  - Real-time price calculation
+  - Persistent cart data
+
+- 🍽️ **Menu Management**
+  - Browse menu items by category
+  - Detailed item views
+  - Search and filter options
+  - Special items highlight
+
+- 📱 **Order Management**
+  - Place orders
+  - Track order status
+  - View order history
+  - Real-time notifications
+
+- 👤 **User Authentication**
+  - Email/Password login
+  - Google Sign-in
+  - Demo admin access
+  - Protected routes
+
+### Admin Features
+- 📊 **Dashboard**
+  - Order management
+  - Real-time order notifications
+  - Status updates
+  - Order details view
+
+- 👥 **User Management**
+  - View all users
+  - Manage admin roles
+  - Delete users
+  - User activity tracking
+
+- 🍴 **Menu Management**
+  - Add new items
+  - Edit existing items
+  - Delete items
+  - Category management
+
+## Technologies Used
+
+### Frontend
+- React.js
+- Tailwind CSS
+- DaisyUI
+- React Router
+- Context API
+- Axios
+- Socket.io Client
+- React Hot Toast
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Socket.io
+- JWT Authentication
+
+## Real-time Features
+- Instant order notifications
+- Live status updates
+- Sound notifications
+- Visual indicators
+- Admin notifications badge
+
+## Getting Started
+
+### Prerequisites
+- Node.js
+- MongoDB
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone [repository-url]
+```
+
+2. Install dependencies for client
+```bash
+cd bistro-client
+npm install
+```
+
+3. Install dependencies for server
+```bash
+cd bistro-server
+npm install
+```
+
+4. Set up environment variables
+- Create .env file in server directory
+- Add necessary environment variables:
+  - MONGODB_URI
+  - JWT_SECRET
+  - PORT
+
+5. Start the development server
+```bash
+# Start frontend
+cd bistro-client
+npm run dev
+
+# Start backend
+cd bistro-server
+npm run dev
+```
+
+## Demo Credentials
+- Admin Access:
+  - Email: admin@demo.com
+  - Password: Admin123.
+
+## Project Structure
+
+
+
+## Features in Development
+- [ ] Payment integration
+- [ ] Advanced analytics
+- [ ] Customer reviews system
+- [ ] Reservation system
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
 Bistro Boss is a full-featured restaurant web application built with the MERN stack. It includes user authentication, dynamic menu management, a shopping cart, admin dashboard, and more. Perfect for a modern food ordering experience.
 
@@ -38,8 +175,8 @@ Bistro Boss is a full-featured restaurant web application built with the MERN st
 | Frontend         | Backend            | Database       | Others             |
 |------------------|--------------------|----------------|--------------------|
 | React.js         | Node.js            | MongoDB        | Tailwind CSS       |
-| React Router DOM | Express.js         | Mongoose       | DaisyUI            |
-| Axios            | JWT Authentication |                | React Hook Form    |
+| React Router DOM | Express.js         |                | DaisyUI            |
+| Axios            |                    |                | React Hook Form    |
 
 ---
 
