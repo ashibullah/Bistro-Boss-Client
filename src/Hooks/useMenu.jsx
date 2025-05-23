@@ -5,7 +5,7 @@ const useMenu = (category) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:5000/menu')
+        fetch('https://bistro-server-ashen.vercel.app/menu')
             .then(res => res.json())
             .then(data => {
                 const filteredMenu = category

@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import toast from 'react-hot-toast';
 import useAuth from "../Hooks/useAuth";
 
-const socket = io('http://localhost:5000');
+const socket = io('https://bistro-server-ashen.vercel.app');
 
 const OrderRequestProvider = ({ children }) => {
     const [orderRequest, setOrderRequest] = useState(null);
