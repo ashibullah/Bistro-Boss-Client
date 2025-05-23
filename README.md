@@ -143,7 +143,7 @@ Bistro Boss is a full-featured restaurant web application built with the MERN st
 
 ## 🚀 Live Demo
 
-> Coming soon...
+> [LIVE DEMO](https://choosealicense.com/licenses/mit/](https://bistro-boss-be236.web.app/))
 
 ---
 
