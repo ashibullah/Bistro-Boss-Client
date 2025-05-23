@@ -6,8 +6,7 @@ import { BiCart } from 'react-icons/bi';
 import { RxCross2 } from 'react-icons/rx';
 import { TiDelete } from 'react-icons/ti';
 import { LuDelete } from 'react-icons/lu';
-
-
+import defaultAvatar from '../assets/others/profile.png';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,7 +54,7 @@ const Navbar = () => {
                   <div className="w-10 rounded-full">
                     <img
                       alt="User avatar"
-                      src={user.photoURL || "https://dpbnri2zg3lc2.cloudfront.net/en/wp-content/uploads/old-blog-uploads/processing-animation.gif"}
+                      src={user.photoURL || defaultAvatar}
                     />
                   </div>
                 </div>

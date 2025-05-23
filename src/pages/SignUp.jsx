@@ -1,11 +1,10 @@
-
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import GoogleSignIn from '../Components/GoogleSignIn';
-
 import { axiosInstance } from '../axios/axiosInstance';
 import toast from 'react-hot-toast';
 import useAuth from '../Hooks/useAuth';
+import defaultAvatar from '../assets/others/profile.png';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -22,9 +21,7 @@ const Signup = () => {
                 axiosInstance.post('/users', userObj)
 
                 setUser(user);
-                const defImg = 'https://th.bing.com/th/id/OIP.SJouM0O5VwvVjWEmGGdBLQHaHa?rs=1&pid=ImgDetMain';
-
-                updateUserProfile({ photoURL: defImg, displayName: name })
+                updateUserProfile({ photoURL: defaultAvatar, displayName: name })
                     .then(() => {
                         toast.success('Profile created successfully!');
                     })
